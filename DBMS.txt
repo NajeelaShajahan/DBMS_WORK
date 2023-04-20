@@ -1,0 +1,202 @@
+
+CREATE TABLE tb_najeela_customer(
+id INT NOT NULL  PRIMARY KEY,
+cus_name  VARCHAR(200) NOT NULL DEFAULT ' ',
+cus_code VARCHAR(100) NOT NULL DEFAULT ' ',
+email VARCHAR(100) NOT NULL DEFAULT ' ',
+phone  VARCHAR(100) NOT NULL DEFAULT ' ',
+contact_person_name  VARCHAR(100) NOT NULL DEFAULT ' ',
+contact_person_phone  VARCHAR(100) NOT NULL DEFAULT ' ',
+cus_status VARCHAR(100) NOT NULL DEFAULT ' ',
+created_date  TIMESTAMP DEFAULT CURRENT_TIMESTAMP ,
+created_by VARCHAR(100) NOT NULL DEFAULT ' ',
+modified_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP ,
+modified_by VARCHAR(100) NOT NULL DEFAULT ' '
+);
+ALTER TABLE tb_najeela_customer
+ADD CONSTRAINT id AUTO_INCREMENT (id);
+
+----------------------------------------------------------------------------------------
+
+
+CREATE TABLE tb_najeela_customer_address(
+id INT NOT NULL PRIMARY KEY ,
+cus_id INT NOT NULL,
+address_type  VARCHAR(200) NOT NULL DEFAULT ' ',
+address_line1  VARCHAR(200) NOT NULL DEFAULT ' ',
+address_line2 VARCHAR(200) NOT NULL DEFAULT ' ',
+city  VARCHAR(200) NOT NULL DEFAULT ' ',
+state  VARCHAR(200) NOT NULL DEFAULT ' ',
+country  VARCHAR(200) NOT NULL DEFAULT ' ',
+postal_code INT NOT NULL 
+);
+
+ALTER TABLE tb_najeela_customer_address
+ADD CONSTRAINT tb_najeela_customer_address UNIQUE (cus_id,address_type);
+
+ALTER TABLE tb_najeela_customer_address 
+ADD CONSTRAINT FK_cus_id FOREIGN KEY(cus_id) REFERENCES tb_najeela_customer(id);
+
+-----------------------------------------------------------------------------------------------------------------------------------
+
+
+
+CREATE TABLE tb_najeela_customer_orders(
+id INT (20),
+customer_id INT (20),
+order_no INT (50),
+order_date DATETIME NULL,
+no_of_items INT (10),
+order_sub_total DECIMAL(65.00),
+order_discount INT  (100),
+order_total_amount DECIMAL(60.00),
+payment_type VARCHAR (100) NOT NULL DEFAULT ' ',
+delivery_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP ,
+order_status VARCHAR (100),
+created_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP ,
+created_by VARCHAR (100) ,
+modified_date  TIMESTAMP DEFAULT CURRENT_TIMESTAMP ,
+modified_by VARCHAR (100),
+PRIMARY KEY (id)
+);
+ALTER TABLE tb_najeela_customer_orders 
+ADD CONSTRAINT FK_customer_id FOREIGN KEY(customer_id) REFERENCES tb_najeela_customer(id);
+
+-----------------------------------------------------------------------------------------------------------------------------------------------
+
+
+
+
+CREATE TABLE tb_najeela_customer_order_item(
+id INT (10),
+order_id INT(10),
+item_name VARCHAR (200),
+item_sku VARCHAR (100) NOT NULL ,
+item_rate INT(100),
+order_quantity INT (100),
+order_total INT (200),
+PRIMARY KEY (id)
+);
+ALTER TABLE tb_najeela_customer_order_item
+add CONSTRAINT FK_order_id FOREIGN KEY (order_id) REFERENCES tb_najeela_customer_orders(id);
+
+
+----------------------------------------------------------------------------------------------------------------------------------------
+
+
+INSERT INTO tb_najeela_customer(id,cus_name,cus_code,email,phone,contact_person_name,
+contact_person_phone,cus_status,created_by,modified_by) VALUES 
+(001,'Najeela','AA001','najeee1611@gmail.com','7639175482','Shalih','4567897750','Active','Admin','Admin'),
+(002,'Ahad','AA002','ahad1@gmail.com','7639175482','Nashar','7766597750','Active','Admin','Admin'),
+(003,'Nashar','AA003','nashar@gmail.com','757775482','Ahanah','9968897750','Inact','Admin','Admin'),
+(004,'Shalih','AA004','shalih@gmail.com','7639234562','Rumana','9952987750','Active','Admin','Admin'),
+(005,'Shajahan','AA005','shajahan@gmail.com','754662','Ahad','2344597750','Inact','Admin','Admin'),
+(006,'Ahana','AA006','ahana@gmail.com','9639456542','Ahanah','5667597750','Active','Admin','Admin'),
+(007,'Nafees','AA007','nafees@gmail.com','9877175482','Sali','6562597750','Inacte','Admin','Admin'),
+(008,'Rumana','AA008','rumana@gmail.com','7555775482','Ahanah','9456597750','Active','Admin','Admin'),
+(009,'Ahana','AA009','ahana@gmail.com','9999175482','Rumana','9876697750','Active','Admin','Admin'),
+(010,'Nuha','AA010','nuha1611@gmail.com','8769175482','Rumana','9887797750','Active','Admin','Admin');
+
+
+------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+INSERT INTO tb_najeela_customer_address(id,cus_id,address_type,address_line1,address_line2,city,state,
+country,postal_code) VALUES 
+(1,1,'home','21,Nirmala nagar','jh','Thanjavur','Tamilnadu','India',613007),
+(2,1,'office','13,stg road','ds' ,'Thanjavur','Tamilnadu','India',613007),
+(3,2,'home','1889,arulanadhammal nagar','rs' ,'Thanjavur','Tamilnadu','India',613007),
+(4,2,'office','7,kiuh road','re' ,'Thanjavur','Tamilnadu','India',613007),
+(5,3,'home','78,stell marrys','gt' ,'Trichy','Tamilnadu','India',613007),
+(6,3,'office','689,road','po' ,'Trichy','Tamilnadu','India',613007),
+(7,4,'home','6789,narmadhai street','io' ,'Trichy','Tamilnatb_najeela_customer_addressdu','India',613007),
+(8,4,'office','99,road','tr' ,'Trichy','Tamilnadu','India',613007),
+(9,5,'home','223,Rajeshwari nagar','lk' ,'Madurai','Tamilnadu','India',613007),
+(10,5,'office','87 road','ds' ,'Madurai','Tamilnadu','India',613007),
+(11,6,'home','87,market road','fd' ,'Madurai','Tamilnadu','India',613007),
+(12,6,'office','788,road','qw' ,'Madurai','Tamilnadu','India',613007),
+(13,7,'home','12,Kaveri nagar','rt' ,'Theni','Tamilnadu','India',613007),
+(14,7,'office','34 road','pl' ,'Theni','Tamilnadu','India',613007),
+(15,8,'home','90,kaver nagar','lk' ,'Theni','Tamilnadu','India',613007),
+(16,8,'office','67 road','we' ,'Theni','Tamilnadu','India',613007),
+(17,9,'home','32,Madhakottati','as' ,'Salem','Tamilnadu','India',613007),
+(18,9,'office','90 road','sc' ,'Salem','Tamilnadu','India',613007),
+(19,10,'home','454,Stella Marrys','nb' ,'Salem','Tamilnadu','India',613007),
+(20,10,'office','87 road','cd' ,'Salem','Tamilnadu','India',613007);
+
+
+---------------------------------------------------------------------------------------------------------------------------------------------
+
+
+INSERT INTO tb_najeela_customer_orders(id,customer_id,order_no,order_date,no_of_items,
+order_sub_total,order_discount,order_total_amount,payment_type,order_status,created_by,modified_by)
+VALUES
+(1,1,501,'2023-4-18 00:00:00',3,4000,50,3850,'debit card','dispatched','Admin','Admin'),
+(2,2,401,'2023-4-8 00:00:00',2,89000,50,7850,'credit card','dispatched','Admin','Admin'),
+(3,3,301,'2023-4-2 00:00:00',4,4080,50,3850,'cash on delivery','dispatched','Admin','Admin'),
+(4,4,311,'2023-4-19 00:00:00',1,3600,50,1850,'debit card','dispatched','Admin','Admin'),
+(5,5,551,'2023-4-13 00:00:00',4,7000,50,5850,'cash on delivery','dispatched','Admin','Admin'),
+(6,6,101,'2023-4-11 00:00:00',3,9800,50,7850,'debit card','dispatched','Admin','Admin'),
+(7,7,901,'2023-4-1 00:00:00',2,6500,50,5650,'cash on delivery','dispatched','Admin','Admin');
+
+
+
+------------------------------------------------------------------------------------------------------------------------------------------
+
+
+INSERT INTO tb_najeela_customer_order_item(id,order_id,item_name,item_sku,item_rate,order_quantity,order_total)
+VALUES 
+(1,1,'kurti','godown',500,1,500),
+(2,1,'watch','godown',1000,2,2000),
+(3,1,'foundation','godown',2000,1,2000),
+(4,2,'diaper','godown',1500,3,4500),
+(5,2,'wipes','godown',2000,4,8000),
+(6,3,'shirt','godown',3000,1,3000),
+(7,3,'jeans','godown',4000,2,8000),
+(8,3,'shoes','godown',5000,1,5000),
+(9,4,'headphones','godown',6000,1,6000),
+(10,4,'laptop','godown',70000,1,70000);
+
+
+----------------------------------------------------------------------------------------------------------------------------------
+
+
+SELECT * FROM tb_najeela_customer;
+
+
+-------------------------------------------------------------------------------------------------------------------------------------------
+
+
+UPDATE tb_najeela_customer 
+SET cus_status='Deleted'
+WHERE cus_status='Active'
+LIMIT 5;
+
+
+---------------------------------------------------------------------------------------------------------------------------------------------
+
+SELECT * FROM tb_najeela_customer WHERE cus_status ='Active';
+
+
+------------------------------------------------------------------------------------------------------------------------------------------------
+
+SELECT a.id,a.cus_name,a.cus_code,a.email,a.phone,a.contact_person_name,a.contact_person_phone,
+a.cus_status,b.id,b.address_type,b.address_line1,b.address_line2,b.city,b.state,
+b.country,b.postal_code
+	FROM tb_najeela_customer a
+	JOIN tb_najeela_customer_address b ON a.id=b.cus_id
+	WHERE a.cus_status='Active'AND b.address_type='home';
+
+
+---------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+SELECT b.id,d.item_name,d.item_sku,d.item_rate,d.order_quantity,d.order_total,b.order_no,b.payment_type,b.order_date,b.delivery_date
+ FROM tb_najeela_customer_orders b
+  JOIN tb_najeela_customer_order_item d  ON d.order_id= b.id WHERE b.id LIMIT 5;
+  
+  
+  
+
+
+
